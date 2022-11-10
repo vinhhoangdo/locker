@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/drawable-v24/bg_horizontal_path.xml" value="0.1" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/drawable-v24/bg_horizontal_path_tablayout.xml" value="0.1965" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/drawable-v24/bg_middle_path_tablayout.xml" value="0.1965" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.195" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/drawable/bg_appbar.xml" value="0.1785" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/drawable/bg_dialog_title.xml" value="0.1" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/drawable/bg_number.xml" value="0.1355" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/drawable/bg_number_onclick.xml" value="0.1355" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/drawable/bg_passcode_setting.xml" value="0.1965" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/drawable/bg_pattern_setting.xml" value="0.1965" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1965" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.2195" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/drawable/ic_radio_off.xml" value="0.1" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/drawable/ic_radio_on.xml" value="0.1" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/drawable/icon_accept.xml" value="0.183" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/drawable/icon_delete_lock_app.xml" value="0.1" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/drawable/icon_deny.xml" value="0.183" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/drawable/icon_lock_item.xml" value="0.137" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/drawable/icon_lock_splash.xml" value="0.1" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/drawable/icon_passcode.xml" value="0.195" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/drawable/icon_passcode_on.xml" value="0.1075" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/drawable/icon_pattern.xml" value="0.1" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/drawable/icon_pattern_on.xml" value="0.1075" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/drawable/icon_profile.xml" value="0.2085" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/drawable/icon_radio_on.xml" value="0.1" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/drawable/icon_warning.xml" value="0.106" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/drawable/thumb_off.xml" value="0.1005" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/layout/activity_locker_setting.xml" value="0.2520833333333333" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/layout/activity_passcode.xml" value="0.264" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/layout/activity_pattern.xml" value="0.2515625" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/layout/activity_splash.xml" value="0.11145833333333334" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/layout/fragment_all_application.xml" value="0.3651041666666667" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/layout/fragment_home.xml" value="0.2" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/layout/fragment_locked_application.xml" value="0.3640625" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/layout/fragment_locker_setting.xml" value="0.1684027777777778" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/layout/fragment_setting_lock.xml" value="0.25" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/layout/layout_all_application.xml" value="0.29957264957264956" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/layout/layout_app_item.xml" value="0.33" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/layout/layout_appbar.xml" value="0.264" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/layout/layout_locked_app.xml" value="0.3651041666666667" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/layout/layout_passcode_service.xml" value="0.2" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/layout/layout_passcode_setting.xml" value="0.3651041666666667" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/layout/layout_pattern_lock_setting.xml" value="0.3640625" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/layout/layout_pattern_service.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/layout/layout_permission_dialog.xml" value="0.536" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/layout/layout_viewpager_tabbar.xml" value="0.3640625" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/app/src/main/res/xml/accessibilityservice.xml" value="0.1" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/passcodelockview/src/main/res/drawable/bg_number.xml" value="0.1" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/passcodelockview/src/main/res/drawable/bg_number_onclick.xml" value="0.1" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/passcodelockview/src/main/res/drawable/dot_empty.xml" value="0.1" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/passcodelockview/src/main/res/drawable/dot_filled.xml" value="0.1" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/passcodelockview/src/main/res/drawable/dot_filled_wrong.xml" value="0.1" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/passcodelockview/src/main/res/drawable/icon_backspace.xml" value="0.183" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/passcodelockview/src/main/res/layout/layout_delete_item.xml" value="0.264" />
+        <entry key="..\:/Users/Vinh/Desktop/Locker/passcodelockview/src/main/res/layout/layout_number_item.xml" value="0.6" />
+        <entry key="..\:/Users/Vinh/Desktop/app/src/main/res/drawable/ic_icon_dash_circle_large.xml" value="0.1" />
+        <entry key="..\:/Users/Vinh/Desktop/app/src/main/res/drawable/ic_icon_dash_circle_small.xml" value="0.1" />
+        <entry key="..\:/Users/Vinh/Desktop/app/src/main/res/layout/activity_splash.xml" value="0.13518518518518519" />
+        <entry key="..\:/Users/Vinh/Desktop/app/src/main/res/layout/layout_app_item.xml" value="0.2" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

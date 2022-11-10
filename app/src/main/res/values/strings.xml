@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Locker</string>
+    <string name="splash_content">Splash Locker icon</string>
+    <string name="lock_button">Toggle Lock</string>
+    <string name="permission_message">Permission</string>
+    <string name="no">Cancel</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="btn_continue">Continue</string>
+    <string name="btn_confirm">Confirm</string>
+    <string name="allApps">All apps</string>
+    <string name="lockedApps">Locked apps</string>
+    <string name="overlay_permission_content">Display over other apps permission</string>
+    <string name="usages_access_permission_content">Usages access permission</string>
+    <string name="setting">Setting</string>
+<!--Passcode-->
+    <string name="pattern">Pattern</string>
+    <string name="enter_passcode_to_unlock">Enter PASSCODE to unlock</string>
+    <string name="re_enter_passcode_to_unlock">Re-enter PASSCODE to unlock</string>
+    <string name="matched_passcode">Matched PASSCODE</string>
+
+<!--Pattern-->
+    <string name="passcode">Passcode</string>
+    <string name="draw_an_unlock_pattern">"Draw an unlock pattern"</string>
+    <string name="re_draw_an_unlock_pattern">"Re-draw an unlock pattern"</string>
+
+    <string name="select_lock_type">Select Screen lock</string>
+</resources>

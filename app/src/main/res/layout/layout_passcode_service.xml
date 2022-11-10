@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primaryDark"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:padding="10dp"
+        android:src="@drawable/icon_back"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintGuide_percent="0.1"
+        android:orientation="horizontal"/>
+
+    <ImageView
+        android:id="@+id/profile_image"
+        android:layout_width="84dp"
+        android:layout_height="84dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/icon_profile"
+        app:layout_constraintTop_toBottomOf="@+id/glProfile"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/profile_name"
+        android:layout_width="256dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/profile_image"
+        android:layout_marginTop="10dp"
+        android:fontFamily="sans-serif-thin"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_image"/>
+
+    <com.example.passcodelockview.IndicatorDots
+        android:id="@+id/indicator_dots"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/profile_name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_name"/>
+
+    <com.example.passcodelockview.PasscodeLockView
+        android:id="@+id/pin_lock_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/indicator_dots"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        app:keypadButtonSize="64dp"
+        app:keypadShowDeleteButton="true"
+        app:keypadTextColor="@color/white"
+        app:keypadTextSize="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/indicator_dots"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
