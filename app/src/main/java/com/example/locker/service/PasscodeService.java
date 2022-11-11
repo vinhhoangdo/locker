@@ -1,8 +1,6 @@
 package com.example.locker.service;
 
-import android.app.ActivityManager;
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.PixelFormat;
@@ -12,23 +10,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
 import com.example.locker.R;
-import com.example.locker.activity.PasscodeActivity;
-import com.example.locker.activity.PatternActivity;
 import com.example.locker.databinding.LayoutPasscodeServiceBinding;
 import com.example.locker.receiver.LockStateReceiver;
 import com.example.locker.util.SharedPreferencesHelper;
+import com.example.locker.util.Utils;
 import com.example.passcodelockview.IndicatorDots;
 import com.example.passcodelockview.PasscodeLockListener;
 import com.example.passcodelockview.PasscodeLockView;
-
-import java.util.List;
 
 public class PasscodeService extends Service implements View.OnClickListener{
     LayoutPasscodeServiceBinding binding;
@@ -36,11 +30,17 @@ public class PasscodeService extends Service implements View.OnClickListener{
     WindowManager.LayoutParams params;
     SharedPreferencesHelper sharedPreferencesHelper;
     private PasscodeLockView mPasscodeLockView;
+    LockStateReceiver lockStateReceiver = new LockStateReceiver();
     private final PasscodeLockListener mPasscodeLockListener = new PasscodeLockListener() {
         @Override
         public void onComplete(String pin) {
             if (sharedPreferencesHelper.getPasscode().equalsIgnoreCase(pin)) {
                 stopSelf();
+            } else {
+                Utils.doubleClickVibrate(binding.getRoot());
+                pin = "";
+                mPasscodeLockView.setInputEnabled(false);
+                mPasscodeLockView.resetWrongInputPasscode();
             }
         }
 
@@ -63,7 +63,7 @@ public class PasscodeService extends Service implements View.OnClickListener{
     @Override
     public void onCreate() {
         super.onCreate();
-        registerReceiver(new LockStateReceiver(), new IntentFilter("android.intent.action.PHONE_STATE"));
+        registerReceiver(lockStateReceiver, HomeAppFilter());
         sharedPreferencesHelper = SharedPreferencesHelper.getInstance(this);
         binding = LayoutPasscodeServiceBinding.inflate(LayoutInflater.from(this));
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
@@ -98,6 +98,7 @@ public class PasscodeService extends Service implements View.OnClickListener{
     public void onDestroy() {
         super.onDestroy();
         mWindowManager.removeView(binding.getRoot());
+        unregisterReceiver(lockStateReceiver);
     }
 
     @Override
@@ -109,5 +110,12 @@ public class PasscodeService extends Service implements View.OnClickListener{
             startActivity(startMain);
             stopSelf();
         }
+    }
+
+    @NonNull
+    private IntentFilter HomeAppFilter() {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
+        return filter;
     }
 }

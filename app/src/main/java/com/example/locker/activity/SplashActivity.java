@@ -2,6 +2,7 @@ package com.example.locker.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.animation.AnimationUtils;
@@ -9,10 +10,13 @@ import android.view.animation.AnimationUtils;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.locker.MainActivity;
 import com.example.locker.R;
 import com.example.locker.databinding.ActivitySplashBinding;
+import com.example.locker.service.AppLaunchDetectionService;
 import com.example.locker.util.Constant;
 import com.example.locker.util.SharedPreferencesHelper;
+import com.example.locker.util.Utils;
 
 
 @SuppressLint("CustomSplashScreen")
@@ -33,5 +37,19 @@ public class SplashActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }, 3000);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(Utils.isOvlUsagePermissionChecked(this)) {
+            Intent intent = new Intent(SplashActivity.this, AppLaunchDetectionService.class);
+            intent.setAction(Constant.ACTION.START_FOREGROUND);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                startForegroundService(intent);
+            } else {
+                startService(intent);
+            }
+        }
     }
 }

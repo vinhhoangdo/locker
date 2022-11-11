@@ -15,8 +15,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.locker.MainActivity;
 import com.example.locker.databinding.ActivityPatternBinding;
 import com.example.locker.util.Constant;
-import com.example.locker.util.DrawState;
+import com.example.locker.util.LockerState;
 import com.example.locker.util.SharedPreferencesHelper;
+import com.example.locker.util.Utils;
 import com.example.patternlockview.PatternLockView;
 import com.example.patternlockview.listener.PatternLockViewListener;
 import com.example.patternlockview.utils.PatternLockUtils;
@@ -30,7 +31,7 @@ public class PatternActivity extends AppCompatActivity implements View.OnClickLi
     ActivityPatternBinding binding;
     private PatternLockView mPatternLockView;
     private String mPattern;
-    private @DrawState
+    private @LockerState
     int mDrawState;
     private final PatternLockViewListener mPatternLockViewListener = new PatternLockViewListener() {
         @Override
@@ -50,19 +51,20 @@ public class PatternActivity extends AppCompatActivity implements View.OnClickLi
             Log.d(getClass().getName(), "Pattern complete: " + strPattern);
 
             if (pattern.size() < 4) {
+                Utils.doubleClickVibrate(binding.getRoot());
                 mPatternLockView.setViewMode(PatternLockView.PatternViewMode.WRONG);
                 clearWrongPattern();
                 return;
             }
-            if (mDrawState == DrawState.DRAW_FIRST) {
+            if (mDrawState == LockerState.DRAW_FIRST) {
                 mPattern = strPattern;
-                setDrawState(DrawState.DRAW_FIRST_DONE);
+                setDrawState(LockerState.DRAW_FIRST_DONE);
             }
-            if (mDrawState == DrawState.DRAW_LAST) {
+            if (mDrawState == LockerState.DRAW_LAST) {
                 if (strPattern.equals(mPattern)) {
                     mPatternLockView.setViewMode(PatternLockView.PatternViewMode.CORRECT);
                     if (!sharedPreferencesHelper.getSettingType().equals(Constant.SPLASH_NAV)) {
-                        setDrawState(DrawState.DRAW_LAST_DONE);
+                        setDrawState(LockerState.DRAW_LAST_DONE);
                     } else {
                         sharedPreferencesHelper.setPattern(mPattern);
                         sharedPreferencesHelper.setLockType(Constant.PATTERN_TYPE);
@@ -70,6 +72,7 @@ public class PatternActivity extends AppCompatActivity implements View.OnClickLi
                     }
 
                 } else {
+                    Utils.doubleClickVibrate(binding.getRoot());
                     mPatternLockView.setViewMode(PatternLockView.PatternViewMode.WRONG);
                     clearWrongPattern();
                 }
@@ -86,29 +89,29 @@ public class PatternActivity extends AppCompatActivity implements View.OnClickLi
         new Handler().postDelayed(() -> mPatternLockView.clearPattern(), 500);
     }
 
-    private void setDrawState(@DrawState int drawState) {
+    private void setDrawState(@LockerState int drawState) {
         mDrawState = drawState;
         switch (drawState) {
-            case DrawState.DRAW_FIRST:
+            case LockerState.DRAW_FIRST:
                 binding.description.setText(com.example.locker.R.string.draw_an_unlock_pattern);
                 binding.confirm.setVisibility(View.GONE);
                 binding.reset.setVisibility(View.GONE);
                 mPatternLockView.setInputEnabled(true);
                 break;
-            case DrawState.DRAW_FIRST_DONE:
+            case LockerState.DRAW_FIRST_DONE:
                 binding.confirm.setText(com.example.locker.R.string.btn_continue);
                 binding.confirm.setVisibility(View.VISIBLE);
                 binding.reset.setVisibility(View.VISIBLE);
                 mPatternLockView.setInputEnabled(false);
                 break;
-            case DrawState.DRAW_LAST:
+            case LockerState.DRAW_LAST:
                 binding.description.setText(com.example.locker.R.string.re_draw_an_unlock_pattern);
                 binding.confirm.setText(com.example.locker.R.string.btn_confirm);
                 binding.confirm.setVisibility(View.GONE);
                 binding.reset.setVisibility(View.VISIBLE);
                 mPatternLockView.setInputEnabled(true);
                 break;
-            case DrawState.DRAW_LAST_DONE:
+            case LockerState.DRAW_LAST_DONE:
                 binding.confirm.setText(com.example.locker.R.string.btn_confirm);
                 binding.confirm.setVisibility(View.VISIBLE);
                 binding.reset.setVisibility(View.VISIBLE);
@@ -117,10 +120,10 @@ public class PatternActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    private void setDrawStateForSetting(@DrawState int drawState) {
+    private void setDrawStateForSetting(@LockerState int drawState) {
         mDrawState = drawState;
         switch (drawState) {
-            case DrawState.DRAW_LAST:
+            case LockerState.DRAW_LAST:
                 binding.description.setText(com.example.locker.R.string.draw_an_unlock_pattern);
                 binding.confirm.setVisibility(View.GONE);
                 binding.reset.setVisibility(View.GONE);
@@ -148,7 +151,7 @@ public class PatternActivity extends AppCompatActivity implements View.OnClickLi
         mPatternLockView.setViewMode(PatternLockView.PatternViewMode.CORRECT);
         mPatternLockView.setDotAnimationDuration(150);
         mPatternLockView.setPathEndAnimationDuration(100);
-        mPatternLockView.setCorrectStateColor(ResourceUtils.getColor(this, R.color.white));
+        mPatternLockView.setCorrectStateColor(ResourceUtils.getColor(this, R.color.green));
         mPatternLockView.setInStealthMode(false);
         mPatternLockView.setTactileFeedbackEnabled(true);
         mPatternLockView.setInputEnabled(true);
@@ -161,9 +164,9 @@ public class PatternActivity extends AppCompatActivity implements View.OnClickLi
         if (sharedPreferencesHelper.getPattern() != null && sharedPreferencesHelper.getSettingType().equals(Constant.SPLASH_NAV)) {
             binding.back.setVisibility(View.GONE);
             mPattern = sharedPreferencesHelper.getPattern();
-            setDrawStateForSetting(DrawState.DRAW_LAST);
+            setDrawStateForSetting(LockerState.DRAW_LAST);
         } else {
-            setDrawState(DrawState.DRAW_FIRST);
+            setDrawState(LockerState.DRAW_FIRST);
         }
         binding.back.setOnClickListener(v -> {
             startActivity(new Intent(this, LockerSettingActivity.class));
@@ -177,23 +180,23 @@ public class PatternActivity extends AppCompatActivity implements View.OnClickLi
         if (id == com.example.locker.R.id.reset) {
             binding.description.setText(com.example.locker.R.string.draw_an_unlock_pattern);
             switch (mDrawState) {
-                case DrawState.DRAW_FIRST_DONE:
-                case DrawState.DRAW_LAST:
-                case DrawState.DRAW_LAST_DONE:
+                case LockerState.DRAW_FIRST_DONE:
+                case LockerState.DRAW_LAST:
+                case LockerState.DRAW_LAST_DONE:
                     mPatternLockView.setInputEnabled(true);
                     mPatternLockView.clearPattern();
-                    setDrawState(DrawState.DRAW_FIRST);
+                    setDrawState(LockerState.DRAW_FIRST);
                     break;
             }
         }
         if (id == com.example.locker.R.id.confirm) {
             switch (mDrawState) {
-                case DrawState.DRAW_FIRST_DONE:
+                case LockerState.DRAW_FIRST_DONE:
                     mPatternLockView.setInputEnabled(true);
                     mPatternLockView.clearPattern();
-                    setDrawState(DrawState.DRAW_LAST);
+                    setDrawState(LockerState.DRAW_LAST);
                     break;
-                case DrawState.DRAW_LAST_DONE:
+                case LockerState.DRAW_LAST_DONE:
                     mPatternLockView.setInputEnabled(true);
                     sharedPreferencesHelper.setPattern(mPattern);
                     sharedPreferencesHelper.setLockType(Constant.PATTERN_TYPE);

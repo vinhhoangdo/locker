@@ -60,13 +60,6 @@ public class AllApplicationAdapter extends RecyclerView.Adapter<AllApplicationAd
         AllApps model = list.get(position);
         holder.imageView.setImageDrawable(model.getAppIcon());
         holder.textView.setText(model.getAppName());
-//                Intent intent = new Intent(context, AppLaunchDetectionService.class);
-//                intent.setAction(Constant.ACTION.START_FOREGROUND);
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//                    context.startForegroundService(intent);
-//                } else {
-//                    context.startService(intent);
-//                }
     }
 
     @Override
@@ -91,13 +84,6 @@ public class AllApplicationAdapter extends RecyclerView.Adapter<AllApplicationAd
         @Override
         public void onClick(View v) {
             if (mItemClickListener != null) {
-                Intent intent = new Intent(context, AppLaunchDetectionService.class);
-                intent.setAction(Constant.ACTION.START_FOREGROUND);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    context.startForegroundService(intent);
-                } else {
-                    context.startService(intent);
-                }
                 mItemClickListener.onItemClick(v, list.get(getAdapterPosition()));
             }
         }

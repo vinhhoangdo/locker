@@ -3,7 +3,6 @@ package com.example.locker.activity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -18,8 +17,9 @@ import com.example.locker.MainActivity;
 import com.example.locker.R;
 import com.example.locker.databinding.ActivityPasscodeBinding;
 import com.example.locker.util.Constant;
-import com.example.locker.util.DrawState;
+import com.example.locker.util.LockerState;
 import com.example.locker.util.SharedPreferencesHelper;
+import com.example.locker.util.Utils;
 import com.example.passcodelockview.IndicatorDots;
 import com.example.passcodelockview.PasscodeLockListener;
 import com.example.passcodelockview.PasscodeLockView;
@@ -30,31 +30,32 @@ public class PasscodeActivity extends AppCompatActivity implements View.OnClickL
 
     private PasscodeLockView mPasscodeLockView;
     private String mPasscode;
-    private @DrawState
+    private @LockerState
     int mDrawState;
 
     private final PasscodeLockListener mPasscodeLockListener = new PasscodeLockListener() {
         @Override
         public void onComplete(String pin) {
             Log.d(getClass().getName(), "Passcode complete: " + pin);
-            if (mDrawState == DrawState.DRAW_FIRST) {
+            if (mDrawState == LockerState.DRAW_FIRST) {
                 mPasscode = pin;
                 mPasscodeLockView.setInputEnabled(false);
                 mPasscodeLockView.resetPasscodeLockView();
                 pin = "";
-                setDrawState(DrawState.DRAW_LAST);
+                setDrawState(LockerState.DRAW_LAST);
             }
-            if (mDrawState == DrawState.DRAW_LAST) {
+            if (mDrawState == LockerState.DRAW_LAST) {
                 if (pin.length() != 0) {
                     if (pin.equals(mPasscode)) {
                         sharedPreferencesHelper.setPasscode(pin);
                         sharedPreferencesHelper.setLockType(Constant.PASSCODE_TYPE);
-                        setDrawState(DrawState.DRAW_LAST_DONE);
+                        setDrawState(LockerState.DRAW_LAST_DONE);
                         navigateAction();
                     } else {
                         pin = "";
                         mPasscodeLockView.setInputEnabled(false);
                         mPasscodeLockView.resetWrongInputPasscode();
+                        Utils.doubleClickVibrate(binding.getRoot());
                     }
                 }
             }
@@ -94,9 +95,9 @@ public class PasscodeActivity extends AppCompatActivity implements View.OnClickL
         if (sharedPreferencesHelper.getSettingType().equals(Constant.SPLASH_NAV) && sharedPreferencesHelper.getPasscode() != null) {
             binding.back.setVisibility(View.GONE);
             mPasscode = sharedPreferencesHelper.getPasscode();
-            setDrawStateForSetting(DrawState.DRAW_LAST);
+            setDrawStateForSetting(LockerState.DRAW_LAST);
         } else {
-            setDrawState(DrawState.DRAW_FIRST);
+            setDrawState(LockerState.DRAW_FIRST);
         }
         binding.back.setOnClickListener(v -> {
             startActivity(new Intent(this, LockerSettingActivity.class));
@@ -104,28 +105,28 @@ public class PasscodeActivity extends AppCompatActivity implements View.OnClickL
         });
     }
 
-    private void setDrawState(@DrawState int drawState) {
+    private void setDrawState(@LockerState int drawState) {
         mDrawState = drawState;
         switch (drawState) {
-            case DrawState.DRAW_FIRST:
+            case LockerState.DRAW_FIRST:
                 binding.profileName.setText(R.string.enter_passcode_to_unlock);
                 binding.resetPasscode.setVisibility(View.GONE);
                 break;
-            case DrawState.DRAW_LAST:
+            case LockerState.DRAW_LAST:
                 binding.profileName.setText(R.string.re_enter_passcode_to_unlock);
                 binding.resetPasscode.setVisibility(View.VISIBLE);
                 break;
-            case DrawState.DRAW_LAST_DONE:
+            case LockerState.DRAW_LAST_DONE:
                 binding.profileName.setText(R.string.matched_passcode);
                 binding.resetPasscode.setVisibility(View.GONE);
                 break;
         }
     }
 
-    private void setDrawStateForSetting(@DrawState int drawState) {
+    private void setDrawStateForSetting(@LockerState int drawState) {
         mDrawState = drawState;
         switch (drawState) {
-            case DrawState.DRAW_LAST:
+            case LockerState.DRAW_LAST:
                 binding.profileName.setText(R.string.enter_passcode_to_unlock);
                 binding.resetPasscode.setVisibility(View.GONE);
                 break;
@@ -147,7 +148,7 @@ public class PasscodeActivity extends AppCompatActivity implements View.OnClickL
         if (view.getId() == R.id.reset_passcode) {
             mPasscodeLockView.setInputEnabled(true);
             mPasscodeLockView.resetPasscodeLockView();
-            setDrawState(DrawState.DRAW_FIRST);
+            setDrawState(LockerState.DRAW_FIRST);
         }
     }
 }

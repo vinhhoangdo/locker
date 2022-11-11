@@ -1,6 +1,8 @@
 package com.example.locker.service;
 
 import android.app.Service;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.PixelFormat;
@@ -19,6 +21,7 @@ import com.example.locker.R;
 import com.example.locker.databinding.LayoutPatternServiceBinding;
 import com.example.locker.receiver.LockStateReceiver;
 import com.example.locker.util.SharedPreferencesHelper;
+import com.example.locker.util.Utils;
 import com.example.patternlockview.PatternLockView;
 import com.example.patternlockview.listener.PatternLockViewListener;
 import com.example.patternlockview.utils.PatternLockUtils;
@@ -32,6 +35,7 @@ public class PatternService extends Service implements View.OnClickListener{
     private WindowManager mWindowManager;
     WindowManager.LayoutParams params;
     private PatternLockView mPatternLockView;
+    LockStateReceiver lockStateReceiver = new LockStateReceiver();
     private final PatternLockViewListener mPatternLockViewListener = new PatternLockViewListener() {
         @Override
         public void onStarted() {
@@ -52,6 +56,7 @@ public class PatternService extends Service implements View.OnClickListener{
                 mPatternLockView.setViewMode(PatternLockView.PatternViewMode.CORRECT);
                 stopSelf();
             } else {
+                Utils.doubleClickVibrate(binding.getRoot());
                 mPatternLockView.setViewMode(PatternLockView.PatternViewMode.WRONG);
                 clearWrongPattern();
             }
@@ -63,7 +68,7 @@ public class PatternService extends Service implements View.OnClickListener{
         }
     };
     private void clearWrongPattern() {
-        new Handler().postDelayed(() -> mPatternLockView.clearPattern(), 500);
+        new Handler().postDelayed(() -> mPatternLockView.clearPattern(), 800);
     }
     @Nullable
     @Override
@@ -74,7 +79,7 @@ public class PatternService extends Service implements View.OnClickListener{
     @Override
     public void onCreate() {
         super.onCreate();
-        registerReceiver(new LockStateReceiver(), new IntentFilter("android.intent.action.PHONE_STATE"));
+        registerReceiver(lockStateReceiver, HomeAppFilter());
         sharedPreferencesHelper = SharedPreferencesHelper.getInstance(this);
         binding = LayoutPatternServiceBinding.inflate(LayoutInflater.from(this));
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
@@ -92,7 +97,12 @@ public class PatternService extends Service implements View.OnClickListener{
         }
 
         mWindowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
+        
         mWindowManager.addView(binding.getRoot(), params);
+        setupPattern();
+    }
+
+    private void setupPattern() {
         mPatternLockView = binding.patternLockView;
         mPatternLockView.setDotCount(3);
         mPatternLockView.setDotNormalSize((int) ResourceUtils.getDimensionInPx(this, com.example.patternlockview.R.dimen.pattern_lock_dot_size));
@@ -103,7 +113,7 @@ public class PatternService extends Service implements View.OnClickListener{
         mPatternLockView.setViewMode(PatternLockView.PatternViewMode.CORRECT);
         mPatternLockView.setDotAnimationDuration(150);
         mPatternLockView.setPathEndAnimationDuration(100);
-        mPatternLockView.setCorrectStateColor(ResourceUtils.getColor(this, com.example.patternlockview.R.color.white));
+        mPatternLockView.setCorrectStateColor(ResourceUtils.getColor(this, com.example.patternlockview.R.color.green));
         mPatternLockView.setInStealthMode(false);
         mPatternLockView.setTactileFeedbackEnabled(true);
         mPatternLockView.setInputEnabled(true);
@@ -115,6 +125,7 @@ public class PatternService extends Service implements View.OnClickListener{
     public void onDestroy() {
         super.onDestroy();
         mWindowManager.removeView(binding.getRoot());
+        unregisterReceiver(lockStateReceiver);
     }
 
     @Override
@@ -126,5 +137,12 @@ public class PatternService extends Service implements View.OnClickListener{
             startActivity(startMain);
             stopSelf();
         }
+    }
+
+    @NonNull
+    private IntentFilter HomeAppFilter() {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
+        return filter;
     }
 }

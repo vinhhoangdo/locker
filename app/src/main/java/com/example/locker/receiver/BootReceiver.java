@@ -3,6 +3,7 @@ package com.example.locker.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.widget.Toast;
 
 import com.example.locker.service.AppLaunchDetectionService;
@@ -18,7 +19,11 @@ public class BootReceiver extends BroadcastReceiver {
         if (Objects.equals(intent.getAction(), ACTION)) {
             Intent serviceIntent = new Intent(context, AppLaunchDetectionService.class);
             serviceIntent.setAction(Constant.ACTION.START_FOREGROUND);
-            context.startService(serviceIntent);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                context.startForegroundService(serviceIntent);
+            } else {
+                context.startService(serviceIntent);
+            }
             Toast.makeText(context, "Boot conpleted", Toast.LENGTH_SHORT).show();
         }
     }

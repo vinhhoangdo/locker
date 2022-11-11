@@ -6,6 +6,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.provider.Settings;
+import android.view.HapticFeedbackConstants;
 import android.view.View;
 import android.widget.TextView;
 
@@ -46,5 +47,14 @@ public class Utils {
 
     public static boolean isOvlUsagePermissionChecked(Context context) {
         return checkOverlayPermission(context) && checkUsageAccessPermission(context);
+    }
+
+    public static void doubleClickVibrate(@NonNull View view) {
+        Runnable r = () -> {
+            int flag = HapticFeedbackConstants.FLAG_IGNORE_VIEW_SETTING | HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING;
+            view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY, flag);
+        };
+        view.postDelayed(r, Constant.VIBRATE_DELAY);
+        view.postDelayed(r, Constant.VIBRATE_DELAY + 100);
     }
 }

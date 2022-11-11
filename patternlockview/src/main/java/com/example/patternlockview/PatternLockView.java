@@ -174,9 +174,9 @@ public class PatternLockView extends View {
             mNormalStateColor = typedArray.getColor(R.styleable.PatternLockView_normalStateColor,
                     ResourceUtils.getColor(getContext(), R.color.white));
             mCorrectStateColor = typedArray.getColor(R.styleable.PatternLockView_correctStateColor,
-                    ResourceUtils.getColor(getContext(), R.color.white));
+                    ResourceUtils.getColor(getContext(), R.color.green));
             mWrongStateColor = typedArray.getColor(R.styleable.PatternLockView_wrongStateColor,
-                    ResourceUtils.getColor(getContext(), R.color.pomegranate));
+                    ResourceUtils.getColor(getContext(), R.color.red));
             mDotNormalSize = (int) typedArray.getDimension(R.styleable.PatternLockView_dotNormalSize,
                     ResourceUtils.getDimensionInPx(getContext(), R.dimen.pattern_lock_dot_size));
             mDotSelectedSize = (int) typedArray.getDimension(R.styleable

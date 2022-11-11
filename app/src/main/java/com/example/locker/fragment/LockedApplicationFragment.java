@@ -101,4 +101,10 @@ public class LockedApplicationFragment extends Fragment {
             appLockerAdapter.notifyDataSetChanged();
         });
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        LoadLockedApplication();
+    }
 }

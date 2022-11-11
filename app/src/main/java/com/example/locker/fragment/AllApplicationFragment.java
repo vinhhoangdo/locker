@@ -1,11 +1,7 @@
 package com.example.locker.fragment;
 
-import static android.content.Context.APP_OPS_SERVICE;
-
 import android.annotation.SuppressLint;
-import android.app.AppOpsManager;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
@@ -27,7 +23,6 @@ import com.example.locker.database.DatabaseHandler;
 import com.example.locker.database.LockPackageDatabase;
 import com.example.locker.databinding.FragmentAllApplicationBinding;
 import com.example.locker.model.AllApps;
-import com.example.locker.model.AppDetails;
 import com.example.locker.util.PermissionDialog;
 import com.example.locker.util.Utils;
 
@@ -67,6 +62,14 @@ public class AllApplicationFragment extends Fragment {
             LoadApplications();
             AllAppDatabase();
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (appListInfo != null) {
+            AllAppDatabase();
+        }
     }
 
     @SuppressLint("QueryPermissionsNeeded")

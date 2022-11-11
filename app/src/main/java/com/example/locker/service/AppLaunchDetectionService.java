@@ -1,7 +1,5 @@
 package com.example.locker.service;
 
-import static android.app.PendingIntent.FLAG_ONE_SHOT;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -25,14 +23,13 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
+import com.example.locker.MainActivity;
 import com.example.locker.R;
-import com.example.locker.activity.PasscodeActivity;
 import com.example.locker.database.LockPackageDatabase;
 import com.example.locker.util.Constant;
 import com.example.locker.util.SharedPreferencesHelper;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.concurrent.Executors;
@@ -72,6 +69,9 @@ public class AppLaunchDetectionService extends Service {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void startDetectForeground() {
+        Intent notificationIntent = new Intent(getApplicationContext(), MainActivity.class);
+        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        @SuppressLint("UnspecifiedImmutableFlag") PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         String NOTIFICATION_CHANNEL_ID = "NOTIFICATION_CHANNEL_ID";
         String channelName = "Background Service";
         NotificationChannel channel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, channelName, NotificationManager.IMPORTANCE_NONE);
@@ -85,6 +85,7 @@ public class AppLaunchDetectionService extends Service {
         Notification notification = notificationBuilder.setOngoing(true)
                 .setSmallIcon(R.drawable.icon_lock_item)
                 .setContentTitle("Background running")
+                .setContentIntent(pendingIntent)
                 .setPriority(NotificationManager.IMPORTANCE_MIN)
                 .setCategory(Notification.CATEGORY_SERVICE)
                 .build();
@@ -152,17 +153,10 @@ public class AppLaunchDetectionService extends Service {
         Log.d("task", "TASK REMOVED");
 
         Intent intent = new Intent(getApplicationContext(), AppLaunchDetectionService.class);
-        PendingIntent pendingIntent = PendingIntent.getService(this, 1, intent, FLAG_ONE_SHOT);
+        @SuppressLint("UnspecifiedImmutableFlag") PendingIntent pendingIntent = PendingIntent.getService(this, 1, intent, PendingIntent.FLAG_ONE_SHOT);
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, SystemClock.elapsedRealtime() + 500, pendingIntent);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, SystemClock.elapsedRealtime() + 5000, pendingIntent);
         super.onTaskRemoved(rootIntent);
     }
-    private Thread.UncaughtExceptionHandler defaultUEH;
-    private final Thread.UncaughtExceptionHandler uncaughtExceptionHandler = (thread, ex) -> {
-        ex.printStackTrace();
 
-        //Same as done in onTaskRemoved()
-        PendingIntent service = PendingIntent.getService(
-                getApplicationContext(), 1001, new Intent(getApplicationContext(), AppLaunchDetectionService.class), FLAG_ONE_SHOT);
-    };
 }

@@ -2,8 +2,8 @@ package com.example.locker.util;
 
 import androidx.annotation.IntDef;
 
-@IntDef({DrawState.DRAW_FIRST, DrawState.DRAW_FIRST_DONE, DrawState.DRAW_LAST, DrawState.DRAW_LAST_DONE})
-public @interface DrawState {
+@IntDef({LockerState.DRAW_FIRST, LockerState.DRAW_FIRST_DONE, LockerState.DRAW_LAST, LockerState.DRAW_LAST_DONE})
+public @interface LockerState {
     int DRAW_FIRST = 1;
     int DRAW_FIRST_DONE = 2;
     int DRAW_LAST = 3;
