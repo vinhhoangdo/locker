@@ -14,6 +14,7 @@ public class Constant {
     public final static String IS_SETTING = "IS_SETTING";
     public final static String SETTING_NAV = "SETTING_NAV";
     public final static String SPLASH_NAV = "SPLASH_NAV";
+    public final static String IS_AUTO_START = "IS_AUTO_START";
 
     public final static int VIBRATE_DELAY = 500;
 }

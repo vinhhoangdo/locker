@@ -10,7 +10,6 @@ import android.view.animation.AnimationUtils;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.locker.MainActivity;
 import com.example.locker.R;
 import com.example.locker.databinding.ActivitySplashBinding;
 import com.example.locker.service.AppLaunchDetectionService;
@@ -42,7 +41,7 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(Utils.isOvlUsagePermissionChecked(this)) {
+        if(Utils.isRunningBackgroundService(this)) {
             Intent intent = new Intent(SplashActivity.this, AppLaunchDetectionService.class);
             intent.setAction(Constant.ACTION.START_FOREGROUND);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

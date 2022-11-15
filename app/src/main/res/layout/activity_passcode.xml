@@ -39,7 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/profile_image"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:gravity="center"
         android:maxLines="1"
         android:textColor="@color/white"
@@ -54,10 +54,17 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/profile_name"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/profile_name"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glLockView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintGuide_percent="0.38"
+        android:orientation="horizontal"/>
 
     <com.example.passcodelockview.PasscodeLockView
         android:id="@+id/pin_lock_view"
@@ -65,14 +72,13 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/indicator_dots"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
         app:keypadButtonSize="64dp"
         app:keypadShowDeleteButton="true"
         app:keypadTextColor="@color/white"
         app:keypadTextSize="18dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/indicator_dots"/>
+        app:layout_constraintTop_toBottomOf="@id/glLockView"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/glReset"

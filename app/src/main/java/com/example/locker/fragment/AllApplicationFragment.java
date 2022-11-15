@@ -11,9 +11,11 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -118,13 +120,14 @@ public class AllApplicationFragment extends Fragment {
         binding.recycler.setAdapter(applicationAdapter);
         binding.progress.setVisibility(View.GONE);
         applicationAdapter.SetOnItemClickListener((view, app) -> {
-            if(!Utils.isOvlUsagePermissionChecked(requireContext())) {
+            if(!Utils.isRunningBackgroundService(requireContext())) {
                 showPermissionDialog();
             } else {
                 boolean isLockedPackage = lockPackageDatabase.getPackageName(app.getPackageName());
                 if (!isLockedPackage) {
                     lockPackageDatabase.addPackage(app.getPackageName());
                 }
+                Toast.makeText(requireActivity(), app.appName + " locked", Toast.LENGTH_SHORT).show();
                 allAppList.remove(app);
                 applicationAdapter.notifyDataSetChanged();
             }

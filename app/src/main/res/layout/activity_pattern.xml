@@ -36,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:gravity="center"
         android:maxLines="1"
         android:textColor="@color/white"
@@ -45,19 +45,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/profile_image" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glLockView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintGuide_percent="0.35"
+        android:orientation="horizontal"/>
+
     <com.example.patternlockview.PatternLockView
         android:id="@+id/pattern_lock_view"
         android:layout_width="280dp"
         android:layout_height="280dp"
         android:layout_gravity="center"
-        android:layout_marginTop="32dp"
         app:aspectRatio="square"
         app:aspectRatioEnabled="true"
         app:dotAnimationDuration="150"
         app:dotCount="3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/description" />
+        app:layout_constraintTop_toBottomOf="@id/glLockView" />
 
     <Button
         android:id="@+id/confirm"

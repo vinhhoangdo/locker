@@ -11,6 +11,7 @@
     <string name="lockedApps">Locked apps</string>
     <string name="overlay_permission_content">Display over other apps permission</string>
     <string name="usages_access_permission_content">Usages access permission</string>
+    <string name="autostart_permission_content">Autostart permission</string>
     <string name="setting">Setting</string>
 <!--Passcode-->
     <string name="pattern">Pattern</string>
@@ -22,6 +23,7 @@
     <string name="passcode">Passcode</string>
     <string name="draw_an_unlock_pattern">"Draw an unlock pattern"</string>
     <string name="re_draw_an_unlock_pattern">"Re-draw an unlock pattern"</string>
+    <string name="matched_pattern">Matched PATTERN</string>
 
     <string name="select_lock_type">Select Screen lock</string>
 </resources>

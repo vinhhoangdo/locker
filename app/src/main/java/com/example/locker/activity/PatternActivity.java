@@ -66,6 +66,7 @@ public class PatternActivity extends AppCompatActivity implements View.OnClickLi
                     if (!sharedPreferencesHelper.getSettingType().equals(Constant.SPLASH_NAV)) {
                         setDrawState(LockerState.DRAW_LAST_DONE);
                     } else {
+                        setDrawStateForSetting(LockerState.DRAW_LAST_DONE);
                         sharedPreferencesHelper.setPattern(mPattern);
                         sharedPreferencesHelper.setLockType(Constant.PATTERN_TYPE);
                         navigateAction();
@@ -112,6 +113,7 @@ public class PatternActivity extends AppCompatActivity implements View.OnClickLi
                 mPatternLockView.setInputEnabled(true);
                 break;
             case LockerState.DRAW_LAST_DONE:
+                binding.description.setText(com.example.locker.R.string.matched_pattern);
                 binding.confirm.setText(com.example.locker.R.string.btn_confirm);
                 binding.confirm.setVisibility(View.VISIBLE);
                 binding.reset.setVisibility(View.VISIBLE);
@@ -129,6 +131,12 @@ public class PatternActivity extends AppCompatActivity implements View.OnClickLi
                 binding.reset.setVisibility(View.GONE);
                 mPatternLockView.setInputEnabled(true);
                 break;
+            case LockerState.DRAW_LAST_DONE:
+                binding.description.setText(com.example.locker.R.string.matched_pattern);
+                binding.confirm.setVisibility(View.GONE);
+                binding.reset.setVisibility(View.GONE);
+                mPatternLockView.setInputEnabled(true);
+                break;
         }
     }
 
@@ -137,9 +145,6 @@ public class PatternActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         binding = ActivityPatternBinding.inflate(getLayoutInflater());
         sharedPreferencesHelper = SharedPreferencesHelper.getInstance(this);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(binding.getRoot());
         mPatternLockView = binding.patternLockView;
         mPatternLockView.setDotCount(3);

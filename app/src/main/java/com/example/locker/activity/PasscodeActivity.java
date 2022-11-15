@@ -78,9 +78,6 @@ public class PasscodeActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         binding = ActivityPasscodeBinding.inflate(getLayoutInflater());
         sharedPreferencesHelper = SharedPreferencesHelper.getInstance(getApplicationContext());
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(binding.getRoot());
         mPasscodeLockView = binding.pinLockView;
         IndicatorDots mIndicatorDots = binding.indicatorDots;

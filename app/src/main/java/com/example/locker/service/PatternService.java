@@ -1,8 +1,6 @@
 package com.example.locker.service;
 
 import android.app.Service;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.PixelFormat;
@@ -29,7 +27,7 @@ import com.example.patternlockview.utils.ResourceUtils;
 
 import java.util.List;
 
-public class PatternService extends Service implements View.OnClickListener{
+public class PatternService extends Service implements View.OnClickListener {
     LayoutPatternServiceBinding binding;
     SharedPreferencesHelper sharedPreferencesHelper;
     private WindowManager mWindowManager;
@@ -67,9 +65,11 @@ public class PatternService extends Service implements View.OnClickListener{
             Log.d(getClass().getName(), "Pattern has been cleared");
         }
     };
+
     private void clearWrongPattern() {
         new Handler().postDelayed(() -> mPatternLockView.clearPattern(), 800);
     }
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -83,7 +83,6 @@ public class PatternService extends Service implements View.OnClickListener{
         sharedPreferencesHelper = SharedPreferencesHelper.getInstance(this);
         binding = LayoutPatternServiceBinding.inflate(LayoutInflater.from(this));
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-
             params = new WindowManager.LayoutParams(
                     WindowManager.LayoutParams.TYPE_PHONE, WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN | WindowManager.LayoutParams.FLAG_FULLSCREEN,
                     PixelFormat.TRANSLUCENT);
@@ -97,7 +96,7 @@ public class PatternService extends Service implements View.OnClickListener{
         }
 
         mWindowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
-        
+
         mWindowManager.addView(binding.getRoot(), params);
         setupPattern();
     }

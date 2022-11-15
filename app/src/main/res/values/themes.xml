@@ -8,5 +8,19 @@
         <item name="android:statusBarColor" tools:targetApi="l">@color/primaryLight</item>
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@color/primaryDark</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+    </style>
+
+    <style name="Theme.Locker.DarkStatusBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/primaryDark</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">@color/primaryDark</item>
+        <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@color/primaryDark</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
     </style>
 </resources>

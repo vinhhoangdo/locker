@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -97,6 +98,7 @@ public class LockedApplicationFragment extends Fragment {
             if (isLockedPackage) {
                 lockPackageDatabase.delete(appDetails.getPackageName());
             }
+            Toast.makeText(requireActivity(), appDetails.appName + " removed", Toast.LENGTH_SHORT).show();
             listLockedApp.remove(listLockedApp.get(position));
             appLockerAdapter.notifyDataSetChanged();
         });

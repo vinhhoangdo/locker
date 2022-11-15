@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onResume() {
         super.onResume();
-        if(Utils.isOvlUsagePermissionChecked(this)) {
+        if(Utils.isRunningBackgroundService(this)) {
             Intent intent = new Intent(MainActivity.this, AppLaunchDetectionService.class);
             intent.setAction(Constant.ACTION.START_FOREGROUND);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
